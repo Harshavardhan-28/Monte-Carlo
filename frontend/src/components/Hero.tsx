@@ -1,50 +1,13 @@
-import { useState, useEffect } from "react";
+import TextType from "./TextType";
+import Link from "next/link";
 
 const Hero = () => {
-  const [currentText, setCurrentText] = useState("");
-  const [textIndex, setTextIndex] = useState(0);
-  const [showStats, setShowStats] = useState(false);
-  
   const heroTexts = [
     "Agent-Driven Synthetic Yield Farming",
-    "AI-Powered DeFi Innovation",
+    "AI-Powered DeFi Innovation", 
     "Advanced Markov Chain Strategies",
     "Rootstock Bitcoin Foundation"
   ];
-
-  const stats = [
-    { label: "Total Value Locked", value: "$0M", change: "+0.00%", trend: "up" },
-    { label: "Active Strategies", value: "0", change: "+0", trend: "up" },
-    { label: "Average APY", value: "0.00%", change: "+0.00%", trend: "up" },
-    { label: "Success Rate", value: "0.00%", change: "+0.00%", trend: "up" }
-  ];
-
-  useEffect(() => {
-    let charIndex = 0;
-    const currentFullText = heroTexts[textIndex];
-    
-    const typeWriter = () => {
-      if (charIndex < currentFullText.length) {
-        setCurrentText(currentFullText.substring(0, charIndex + 1));
-        charIndex++;
-        setTimeout(typeWriter, 300); // 300ms per character - much slower and readable
-      } else {
-        // Text is complete, wait 5 seconds then move to next
-        setTimeout(() => {
-          setTextIndex((prev) => (prev + 1) % heroTexts.length);
-        }, 5000);
-      }
-    };
-    
-    // Start fresh with each new text
-    setCurrentText("");
-    setTimeout(typeWriter, 1000); // Initial delay before typing starts
-  }, [textIndex]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowStats(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
@@ -66,10 +29,19 @@ const Hero = () => {
 
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 slide-up">
-          <span className="block text-white mb-4">SYNAPSE</span>
+          <span className="block text-white mb-4">MONTE-CARLO</span>
           <span className="block text-2xl md:text-4xl lg:text-5xl font-semibold text-blue-400 min-h-[80px] flex items-center justify-center">
-            {currentText}
-            <span className="animate-pulse text-blue-400 ml-1">|</span>
+            <TextType
+              text={heroTexts}
+              typingSpeed={50}
+              deletingSpeed={30}
+              pauseDuration={2000}
+              className="text-blue-400"
+              cursorClassName="text-blue-400"
+              style={{ color: '#60a5fa' }}
+              variableSpeed={{ min: 30, max: 70 }}
+              onSentenceComplete={() => {}}
+            />
           </span>
         </h1>
 
@@ -105,90 +77,30 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 slide-up" style={{ animationDelay: '0.4s' }}>
-          <button className="bg-blue-400 hover:bg-blue-500 text-white text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
-            <div className="flex items-center space-x-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              <span>Get Started</span>
-            </div>
-          </button>
-          <button className="bg-white hover:bg-gray-100 text-gray-900 text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
-            <div className="flex items-center space-x-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <span>Documentation</span>
-            </div>
-          </button>
+          <Link href="/chatbot">
+            <button className="bg-blue-400 hover:bg-blue-500 text-white text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+              <div className="flex items-center space-x-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                <span>Get Started</span>
+              </div>
+            </button>
+          </Link>
+          <Link href="/chatbot">
+            <button className="bg-white hover:bg-gray-100 text-gray-900 text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+              <div className="flex items-center space-x-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>Launch Platform</span>
+              </div>
+            </button>
+          </Link>
         </div>
 
-        {/* Protocol Statistics */}
-        {showStats && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto slide-up" style={{ animationDelay: '0.6s' }}>
-            {stats.map((stat, index) => (
-              <div key={index} className="finance-card text-center">
-                <div className="flex items-center justify-center space-x-1 mb-2">
-                  <div className={`text-3xl font-bold mono ${
-                    stat.trend === 'up' ? 'text-green-400' : 'text-red-400'
-                  }`}>
-                    {stat.value}
-                  </div>
-                  <svg className={`w-4 h-4 ${
-                    stat.trend === 'up' ? 'text-green-400' : 'text-red-400'
-                  }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {stat.trend === 'up' ? (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17l9.2-9.2M17 17V7H7" />
-                    ) : (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7l9.2 9.2M17 7v10H7" />
-                    )}
-                  </svg>
-                </div>
-                <div className="text-sm text-gray-400 mb-1">{stat.label}</div>
-                <div className={`text-xs mono ${
-                  stat.trend === 'up' ? 'text-green-400' : 'text-red-400'
-                }`}>
-                  {stat.change}
-                </div>
-                <div className="progress-bar mt-2">
-                  <div className="progress-fill" style={{ width: '0%' }}></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        
 
-        {/* Technology Partners */}
-        <div className="mt-16 slide-up" style={{ animationDelay: '0.8s' }}>
-          <p className="text-sm text-gray-500 mb-4">Powered by leading blockchain technologies</p>
-          <div className="flex justify-center items-center space-x-8 opacity-60">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">RSK</span>
-              </div>
-              <span className="text-sm text-gray-400">Rootstock</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">F.AI</span>
-              </div>
-              <span className="text-sm text-gray-400">Fetch.ai</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">P</span>
-              </div>
-              <span className="text-sm text-gray-400">Pyth Network</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
       </div>
     </section>
   );

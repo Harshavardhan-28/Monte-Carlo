@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import ChainVisualizer from "../components/ChainVisualizer";
+import MarkovChain from "../components/MarkovChain";
 import KeyFeatures from "../components/KeyFeatures";
 import HowItWorks from "../components/HowItWorks";
 import Footer from "../components/Footer";
+import WalletInfo from "../components/WalletInfo";
+import { useWallet } from "../hooks/useWallet";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const { isConnected } = useWallet();
 
   useEffect(() => {
     setMounted(true);
@@ -21,7 +24,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Synapse - Agent-Driven Synthetic Yield Farming Protocol</title>
+        <title>Monte-Carlo - Agent-Driven Synthetic Yield Farming Protocol</title>
         <meta name="description" content="Experience the future of DeFi with AI-powered synthetic yield farming. Deploy autonomous agents using advanced Markov Chain models on Rootstock." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -39,8 +42,16 @@ export default function Home() {
         </div>
 
         <Navbar />
+        
+        {/* Wallet Info - Show when connected */}
+        {mounted && isConnected && (
+          <div className="fixed top-20 right-4 z-40">
+            <WalletInfo />
+          </div>
+        )}
+        
         <Hero />
-        <ChainVisualizer />
+        <MarkovChain />
         <KeyFeatures />
         <HowItWorks />
         <Footer />
