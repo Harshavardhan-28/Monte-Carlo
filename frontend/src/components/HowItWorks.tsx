@@ -86,7 +86,7 @@ const HowItWorks = () => {
             <span className="text-sm font-mono text-cyan-400">HOW IT WORKS</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Three-Layer <span className="gradient-text">Architecture</span>
+            Three-Layer <span className="text-blue-400 font-bold">Architecture</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Our sophisticated system operates through three interconnected layers that work in harmony 
@@ -303,7 +303,7 @@ const HowItWorks = () => {
               Experience the power of AI-driven DeFi with our three-layer architecture. 
               Deploy your first autonomous agent today.
             </p>
-            <button className="btn-primary text-lg px-8 py-4">
+            <button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
               <div className="flex items-center space-x-2">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />

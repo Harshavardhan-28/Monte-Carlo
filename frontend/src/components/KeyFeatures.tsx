@@ -112,7 +112,7 @@ const KeyFeatures = () => {
             <span className="text-sm font-mono text-cyan-400">KEY FEATURES</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Advanced <span className="gradient-text">DeFi Technology</span>
+            Advanced <span className="text-blue-400 font-bold">DeFi Technology</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Experience the next generation of decentralized finance with our cutting-edge AI-powered platform 
