@@ -21,33 +21,24 @@ const Hero = () => {
 
   useEffect(() => {
     let charIndex = 0;
-    let isDeleting = false;
+    const currentFullText = heroTexts[textIndex];
     
     const typeWriter = () => {
-      const currentFullText = heroTexts[textIndex];
-      
-      if (isDeleting) {
-        setCurrentText(currentFullText.substring(0, charIndex - 1));
-        charIndex--;
-      } else {
+      if (charIndex < currentFullText.length) {
         setCurrentText(currentFullText.substring(0, charIndex + 1));
         charIndex++;
-      }
-      
-      if (!isDeleting && charIndex === currentFullText.length) {
+        setTimeout(typeWriter, 300); // 300ms per character - much slower and readable
+      } else {
+        // Text is complete, wait 5 seconds then move to next
         setTimeout(() => {
-          isDeleting = true;
-        }, 2000);
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        setTextIndex((prev) => (prev + 1) % heroTexts.length);
+          setTextIndex((prev) => (prev + 1) % heroTexts.length);
+        }, 5000);
       }
-      
-      const typingSpeed = isDeleting ? 50 : 100;
-      setTimeout(typeWriter, typingSpeed);
     };
     
-    typeWriter();
+    // Start fresh with each new text
+    setCurrentText("");
+    setTimeout(typeWriter, 1000); // Initial delay before typing starts
   }, [textIndex]);
 
   useEffect(() => {
@@ -75,10 +66,10 @@ const Hero = () => {
 
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 slide-up">
-          <span className="block text-white mb-2">SYNAPSE</span>
-          <span className="block text-xl md:text-2xl lg:text-3xl font-normal gradient-text">
+          <span className="block text-white mb-4">SYNAPSE</span>
+          <span className="block text-2xl md:text-4xl lg:text-5xl font-semibold text-blue-400 min-h-[80px] flex items-center justify-center">
             {currentText}
-            <span className="animate-pulse text-blue-400">|</span>
+            <span className="animate-pulse text-blue-400 ml-1">|</span>
           </span>
         </h1>
 
@@ -114,7 +105,7 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 slide-up" style={{ animationDelay: '0.4s' }}>
-          <button className="btn-primary text-lg px-8 py-4">
+          <button className="bg-blue-400 hover:bg-blue-500 text-white text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -122,7 +113,7 @@ const Hero = () => {
               <span>Get Started</span>
             </div>
           </button>
-          <button className="btn-secondary text-lg px-8 py-4">
+          <button className="bg-white hover:bg-gray-100 text-gray-900 text-lg px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
             <div className="flex items-center space-x-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

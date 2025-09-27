@@ -69,7 +69,7 @@ const ChainVisualizer = () => {
             <span className="text-sm font-mono text-cyan-400">CHAIN VISUALIZER</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Cross-Chain Swap <span className="gradient-text">Animation</span>
+            Cross-Chain Swap <span className="text-blue-400 font-bold">Animation</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Watch as our Markov Chain models predict optimal swap routes across multiple blockchain networks, 
