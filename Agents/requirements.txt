@@ -1,7 +1,0 @@
-uagents
-requests
-numpy
-pandas
-yfinance
-scipy
-statsmodels
