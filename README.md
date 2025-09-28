@@ -1,4 +1,4 @@
-# Monte-Carlo  
+># Monte-Carlo  
 An *Agent-Driven Synthetic Yield Farming Protocol*
 
 ---
@@ -65,32 +65,36 @@ The architecture has three main layers:
 
 ---
 
-## 🖼 Architecture Diagram
-You can visualize the system using the Mermaid diagram below:
+## 🪙 Rootstock Integration  
+Monte-Carlo is deployed on the **Rootstock (RSK) network**, leveraging its **EVM compatibility** and **Bitcoin-backed security**.  
+We used Rootstock for:  
+- **Contract Deployment** – All core contracts (Vault, sAssets, Liquidity Pool) live on the RSK chain.  
+- **Transactions** – Users interact with the protocol using tRBTC as collateral.  
+- **Liquidity Pool & Swapping** – Synthetic asset swaps are executed directly through Rootstock’s DeFi ecosystem, ensuring low-cost and secure transactions.  
 
-```mermaid
-flowchart TD
-    subgraph PredictiveModel["Predictive Model (Markov Chain)"]
-        MC[Markov Chain Model]
-    end
+By anchoring to Bitcoin via Rootstock, Monte-Carlo inherits Bitcoin’s security while enabling Ethereum-like programmability.  
 
-    subgraph AgenticLayer["Agentic Layer (Autonomous Agents)"]
-        DF[DataFetcherAgent]
-        MM[MarkovModelAgent]
-        PM[PositionManagerAgent]
-    end
+<img width="1920" height="1080" alt="Screenshot (492)" src="https://github.com/user-attachments/assets/31583809-e6f9-4290-9370-3761f49aab2d" />
 
-    subgraph OnChainLayer["On-Chain Layer (The Vault)"]
-        V[Vault.sol (Main Contract)]
-        SA[sAsset.sol (Synthetic Tokens)]
-        P[Pyth Network Oracle]
-    end
+<img width="1920" height="1080" alt="Screenshot (493)" src="https://github.com/user-attachments/assets/75d114fe-3d06-44ca-a287-537165ae7a01" />
 
-    MC --> DF
-    DF --> MM
-    MM --> PM
-    PM --> V
-    V --> SA
-    V --> P
-    User([User]) --> PM
-    SA --> User
+---
+
+## 🤖 Agentic System (uAgents)  
+The intelligence of Monte-Carlo comes from **Fetch.ai’s uAgents**, built on the **mailbox template** for scalable and asynchronous communication.  
+- **Multiple uAgents** were developed for data fetching, prediction, and execution.  
+- Agents are **integrated with our frontend**, enabling seamless interaction for users.  
+- A detailed **README is available in the `/agents` folder**, explaining each agent, its role, and the mailbox setup.  
+
+This modular design ensures that agents can be easily extended or swapped without touching the on-chain contracts.  
+
+---
+
+## 💸 X402 Payments  
+Monte-Carlo integrates **X402 payments** to facilitate decentralized micro-transactions between agents and services.  
+- **Price Feeds:** Whenever the DataFetcherAgent retrieves oracle data, it pays the data provider using X402.  
+- **Tool Calling & Access:** In our **second MCP (Multi-Chain Protocol)** module, agents handling contract interactions use X402 for gated access and secure tool execution.  
+
+This **agent-to-agent economy** ensures that every service call, whether fetching data or executing blockchain transactions, is **self-sustaining and economically incentivized**.  
+
+---
